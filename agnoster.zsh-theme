@@ -120,12 +120,21 @@ prompt_status() {
   [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default " $symbols "
 }
 
+prompt_virtualenv() {
+  if [[ -n $VIRTUAL_ENV ]]; then
+    color=cyan
+    prompt_segment $color $PRIMARY_FG
+    print -Pn " $(basename $VIRTUAL_ENV) "
+  fi
+}
+
 ## Main prompt
 prompt_agnoster_main() {
   RETVAL=$?
   CURRENT_BG='NONE'
   prompt_status
   prompt_context
+  prompt_virtualenv
   prompt_dir
   prompt_git
   prompt_end
